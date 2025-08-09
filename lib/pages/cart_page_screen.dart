@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'Cart_Provider.dart';
+import '../providers/Cart_Provider.dart';
 
 
 class cartPageScreen extends StatelessWidget {

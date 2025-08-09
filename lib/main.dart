@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'Cart_Provider.dart';
-import 'home_page_screen.dart';
+import 'providers/Cart_Provider.dart';
+import 'pages/home_page_screen.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
