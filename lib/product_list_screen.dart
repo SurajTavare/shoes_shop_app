@@ -11,6 +11,7 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
+  TextEditingController myControlar = TextEditingController();
   final List<String> filters = const [
     "All",
     "Adidas",
@@ -24,6 +25,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   ];
 
   late String selectedFilter;
+  String search = "";
 
   @override
   void initState() {
@@ -34,9 +36,22 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final filteredProducts = products.where((product) {
-      return selectedFilter == 'All' || product['company'] == selectedFilter;
+    var filteredProducts = products.where((product) {
+      return selectedFilter == 'All' ||
+          product['company'] == selectedFilter ||
+          product['title'] == myControlar.text;
     }).toList();
+    print(filteredProducts);
+    if (search.isNotEmpty) {
+      for (var product in products) {
+        if (product['title'].toString().toLowerCase().contains(search.toLowerCase())) {
+          filteredProducts.insert(0, product);
+          // filteredProducts.add(product);
+        }
+
+      }
+
+    }
 
     return SafeArea(
       child: Column(
@@ -52,6 +67,14 @@ class _ProductListScreenState extends State<ProductListScreen> {
               ),
               Expanded(
                 child: TextField(
+                  controller: myControlar,
+                  textInputAction: TextInputAction.search,
+                  onSubmitted: (value) {
+                    setState(() {
+                      search = value;
+                    });
+                  },
+
                   decoration: InputDecoration(
                     hintText: "search",
                     prefixIcon: Icon(Icons.search),
